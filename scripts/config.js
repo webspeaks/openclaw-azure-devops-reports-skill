@@ -24,9 +24,18 @@ function parseEnvFile(filePath) {
   return env;
 }
 
+function resolveOutputDir(requestedOutputDir) {
+  if (!requestedOutputDir) return DEFAULT_OUTPUT_DIR;
+  const resolved = path.resolve(SKILL_DIR, requestedOutputDir);
+  const relative = path.relative(SKILL_DIR, resolved);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error('AZURE_DEVOPS_OUTPUT_DIR must stay within the skill directory');
+  }
+  return resolved;
+}
+
 function loadConfig() {
-  const fileEnv = parseEnvFile(ENV_PATH);
-  const env = { ...fileEnv, ...process.env };
+  const env = parseEnvFile(ENV_PATH);
 
   const config = {
     skillDir: SKILL_DIR,
@@ -36,7 +45,7 @@ function loadConfig() {
     defaultProject: env.AZURE_DEVOPS_DEFAULT_PROJECT || '',
     defaultTeam: env.AZURE_DEVOPS_DEFAULT_TEAM || '',
     defaultQueryId: env.AZURE_DEVOPS_DEFAULT_QUERY_ID || '',
-    outputDir: env.AZURE_DEVOPS_OUTPUT_DIR || DEFAULT_OUTPUT_DIR,
+    outputDir: resolveOutputDir(env.AZURE_DEVOPS_OUTPUT_DIR || ''),
   };
 
   fs.mkdirSync(config.outputDir, { recursive: true });

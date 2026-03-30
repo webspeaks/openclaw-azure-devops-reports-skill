@@ -17,7 +17,7 @@ This skill is designed around a secure, low-risk workflow:
 
 - **Node.js** handles Azure DevOps API access and data normalization
 - **Python** handles Excel workbook generation with native charts
-- credentials are loaded from a local `.env`
+- credentials are loaded from a skill-local `.env`
 - reports are read-only by default
 
 ---
@@ -51,7 +51,8 @@ This skill is intentionally narrow and read-focused.
 - **No Authorization header logging**
 - **No PAT values stored in source control**
 - **Local output only**
-- **Output file writes restricted to the configured output directory**
+- **Output file writes restricted to the skill directory**
+- **`AZURE_DEVOPS_OUTPUT_DIR` must resolve inside the skill directory**
 
 ### Required PAT scopes
 
@@ -67,6 +68,7 @@ No write scopes or admin scopes are required for the intended workflow.
 - Keep `.env` local
 - Never commit `.env`
 - Commit only `.env.example`
+- This skill reads configuration from the skill-local `.env` file only
 
 ---
 
@@ -75,6 +77,7 @@ No write scopes or admin scopes are required for the intended workflow.
 - OpenClaw
 - Node.js
 - Python 3
+- `pip3`
 - `xlsxwriter`
 
 Install Python dependency:
@@ -98,7 +101,7 @@ AZURE_DEVOPS_PAT=your-personal-access-token
 AZURE_DEVOPS_DEFAULT_PROJECT=Your Project Name
 AZURE_DEVOPS_DEFAULT_TEAM=Web 2.0
 AZURE_DEVOPS_DEFAULT_QUERY_ID=your-query-guid
-AZURE_DEVOPS_OUTPUT_DIR=
+AZURE_DEVOPS_OUTPUT_DIR=output
 ```
 
 ### Required variables
@@ -111,7 +114,7 @@ AZURE_DEVOPS_OUTPUT_DIR=
 - `AZURE_DEVOPS_DEFAULT_PROJECT`
 - `AZURE_DEVOPS_DEFAULT_TEAM`
 - `AZURE_DEVOPS_DEFAULT_QUERY_ID`
-- `AZURE_DEVOPS_OUTPUT_DIR`
+- `AZURE_DEVOPS_OUTPUT_DIR` (must remain inside the skill directory)
 
 ---
 
@@ -119,7 +122,7 @@ AZURE_DEVOPS_OUTPUT_DIR=
 
 ### Data flow
 
-1. Node.js loads config from `.env`
+1. Node.js loads config from the skill-local `.env`
 2. Node.js fetches Azure DevOps data
 3. Node.js normalizes work items into a clean JSON bundle
 4. Python reads the JSON bundle
@@ -248,66 +251,6 @@ Once the skill is installed and configured, you can ask ClawBot in plain English
 - `which team member has most open items?`
 - `please compute the exact top assignee by open items only`
 - `show sprint progress`
-
----
-
-## Example conversations
-
-### Example 1
-
-**You:**
-
-```text
-Generate the Azure DevOps report
-```
-
-**ClawBot should:**
-
-- use the default project and saved query from `.env`
-- export report data to JSON
-- build the Excel workbook from the exported JSON
-- return the final file path
-
-### Example 2
-
-**You:**
-
-```text
-show my Azure DevOps projects
-```
-
-**ClawBot should:**
-
-- list projects from the configured org
-- return them in a readable summary
-
-### Example 3
-
-**You:**
-
-```text
-list all team members in Web 2.0 team
-```
-
-**ClawBot should:**
-
-- resolve the project/team
-- fetch team members
-- return the team member list
-
-### Example 4
-
-**You:**
-
-```text
-summarize closed items from last week
-```
-
-**ClawBot should:**
-
-- fetch work items closed in the last 7 days
-- summarize by type, assignee, and date
-- return a short readable summary
 
 ---
 

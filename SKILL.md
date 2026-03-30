@@ -1,6 +1,22 @@
 ---
 name: azure-devops-reports
 description: Read Azure DevOps projects, teams, team members, saved queries, and work items securely; run WIQL-based reporting; and export spreadsheet-ready reports with summaries and charts. Use when the user wants Azure DevOps project lists, team lists, team-member lists, saved query results, sprint/work item reporting, WIQL queries, Excel/CSV exports, charts, assignee/state/type breakdowns, or team/project work item analysis.
+metadata:
+  {
+    "openclaw": {
+      "requires": {
+        "bins": ["node", "python3", "pip3"],
+        "envVars": [
+          "AZURE_DEVOPS_ORG",
+          "AZURE_DEVOPS_PAT",
+          "AZURE_DEVOPS_DEFAULT_PROJECT",
+          "AZURE_DEVOPS_DEFAULT_TEAM",
+          "AZURE_DEVOPS_DEFAULT_QUERY_ID",
+          "AZURE_DEVOPS_OUTPUT_DIR"
+        ]
+      }
+    }
+  }
 ---
 
 # Azure DevOps Reports
@@ -25,6 +41,21 @@ Optional defaults:
 
 If required values are missing, ask the user to create or update `.env` in this skill directory.
 
+## Runtime requirements
+
+This skill requires:
+
+- Node.js
+- Python 3
+- `pip3`
+- Python package: `xlsxwriter`
+
+Install Python dependency once:
+
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Safety guarantees
 
 - Read-only Azure DevOps access only
@@ -32,12 +63,13 @@ If required values are missing, ask the user to create or update `.env` in this 
 - No secret logging
 - No Authorization header logging
 - No arbitrary shell execution from user input
-- Output restricted to local report files under the configured output directory
+- Output restricted to local report files under the skill directory
+- `AZURE_DEVOPS_OUTPUT_DIR` must resolve inside the skill directory
 - Prefer least-privilege PAT scopes: `vso.project` and `vso.work`
 
 ## Workflow
 
-1. Load config from `.env`.
+1. Load config from the skill-local `.env` file.
 2. Resolve project, team, and query id from explicit arguments or configured defaults.
 3. Decide whether the request is project-scoped, team-scoped, team-member scoped, saved-query, sprint-scoped, or custom-WIQL.
 4. Fetch work item ids via WIQL when filtering is needed.
@@ -65,12 +97,6 @@ Run all commands from the skill directory:
 
 ```bash
 cd /path/to/azure-devops-reports
-```
-
-Install Python dependency once:
-
-```bash
-pip3 install -r requirements.txt
 ```
 
 ### 1) List projects
