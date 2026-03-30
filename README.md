@@ -37,45 +37,17 @@ This skill is designed around a secure, low-risk workflow:
 
 ---
 
-## Folder structure
-
-```text
-azure-devops-reports/
-├── SKILL.md
-├── README.md
-├── .env.example
-├── .gitignore
-├── scripts/
-│   ├── ado-client.js
-│   ├── build_excel_report.py
-│   ├── config.js
-│   ├── export-report.js
-│   ├── generate-excel-report.js
-│   ├── iterations.js
-│   ├── list-projects.js
-│   ├── projects.js
-│   ├── queries.js
-│   ├── teams.js
-│   ├── utils.js
-│   ├── validators.js
-│   └── workitems.js
-├── references/
-└── output/
-```
-
----
-
 ## Requirements
 
 - OpenClaw
 - Node.js
 - Python 3
-- `xlsxwriter` for Excel workbook generation
+- `xlsxwriter`
 
 Install Python dependency:
 
 ```bash
-pip3 install xlsxwriter
+pip3 install -r requirements.txt
 ```
 
 ---
@@ -322,18 +294,20 @@ summarize closed items from last week
 
 ---
 
-## Publishing notes
+## Publishing checklist
 
 Before publishing to GitHub or ClawHub:
 
 - keep `.env` out of version control
 - keep `.env.example` in the repo
 - keep `output/` ignored
+- keep OS/editor junk ignored
 - test from a clean clone
-- verify docs do not contain machine-specific secrets
+- verify docs do not contain local machine paths or secrets
+- verify the skill works with only `.env.example` + `requirements.txt` guidance
 
 ---
 
 ## License
 
-Add your preferred license here.
+MIT
