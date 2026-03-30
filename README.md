@@ -37,6 +37,39 @@ This skill is designed around a secure, low-risk workflow:
 
 ---
 
+## Security model
+
+This skill is intentionally narrow and read-focused.
+
+### Safety guarantees
+
+- **Read-only by default**
+- **No create/update/delete actions for Azure DevOps work items**
+- **No email sending**
+- **No arbitrary shell execution from user input**
+- **No secret logging**
+- **No Authorization header logging**
+- **No PAT values stored in source control**
+- **Local output only**
+- **Output file writes restricted to the configured output directory**
+
+### Required PAT scopes
+
+Use least-privilege Azure DevOps PAT scopes:
+
+- `vso.project`
+- `vso.work`
+
+No write scopes or admin scopes are required for the intended workflow.
+
+### Secrets
+
+- Keep `.env` local
+- Never commit `.env`
+- Commit only `.env.example`
+
+---
+
 ## Requirements
 
 - OpenClaw
@@ -79,18 +112,6 @@ AZURE_DEVOPS_OUTPUT_DIR=
 - `AZURE_DEVOPS_DEFAULT_TEAM`
 - `AZURE_DEVOPS_DEFAULT_QUERY_ID`
 - `AZURE_DEVOPS_OUTPUT_DIR`
-
----
-
-## Security notes
-
-- This skill is intended to be **read-only** by default.
-- Keep `.env` local and never commit it.
-- Use least-privilege Azure DevOps PAT scopes.
-- Recommended PAT scopes:
-  - `vso.project`
-  - `vso.work`
-- Report output is written only to the configured output directory.
 
 ---
 
@@ -302,6 +323,8 @@ Before publishing to GitHub or ClawHub:
 - keep `.env.example` in the repo
 - keep `output/` ignored
 - keep OS/editor junk ignored
+- remove generated report files before publishing
+- remove cache files before publishing
 - test from a clean clone
 - verify docs do not contain local machine paths or secrets
 - verify the skill works with only `.env.example` + `requirements.txt` guidance

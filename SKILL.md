@@ -1,6 +1,6 @@
 ---
 name: azure-devops-reports
-description: Read Azure DevOps projects, teams, saved queries, and work items securely; run WIQL-based reporting; and export spreadsheet-ready reports with summaries and charts. Use when the user wants Azure DevOps project lists, team lists, team-member lists, saved query results, sprint/work item reporting, WIQL queries, Excel/CSV exports, charts, assignee/state/type breakdowns, or team/project work item analysis.
+description: Read Azure DevOps projects, teams, team members, saved queries, and work items securely; run WIQL-based reporting; and export spreadsheet-ready reports with summaries and charts. Use when the user wants Azure DevOps project lists, team lists, team-member lists, saved query results, sprint/work item reporting, WIQL queries, Excel/CSV exports, charts, assignee/state/type breakdowns, or team/project work item analysis.
 ---
 
 # Azure DevOps Reports
@@ -25,13 +25,15 @@ Optional defaults:
 
 If required values are missing, ask the user to create or update `.env` in this skill directory.
 
-## Security rules
+## Safety guarantees
 
-- Treat this skill as read-only unless the user explicitly asks for mutations and the skill has been extended for them.
-- Never print or echo PAT values.
-- Never log Authorization headers.
-- Validate project, team, work item ids, output file names, and requested fields.
-- Write exports only under the configured output directory.
+- Read-only Azure DevOps access only
+- No create, update, or delete operations for Azure DevOps work items
+- No secret logging
+- No Authorization header logging
+- No arbitrary shell execution from user input
+- Output restricted to local report files under the configured output directory
+- Prefer least-privilege PAT scopes: `vso.project` and `vso.work`
 
 ## Workflow
 
