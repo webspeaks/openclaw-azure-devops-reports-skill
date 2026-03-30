@@ -208,7 +208,7 @@ These requests should map to the skill without manual script execution:
 
 - `show my Azure DevOps projects`
 - `how many teams do we have?`
-- `list all team members in Web 2.0 team`
+- `list all team members in <Your Team Name> team`
 - `can you list the sprints?`
 - `generate the Azure DevOps report`
 - `regenerate the excel`

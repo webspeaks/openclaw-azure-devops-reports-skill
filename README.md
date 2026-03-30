@@ -100,7 +100,7 @@ AZURE_DEVOPS_ORG=your-org-name
 AZURE_DEVOPS_PAT=your-personal-access-token
 
 AZURE_DEVOPS_DEFAULT_PROJECT=Your Project Name
-AZURE_DEVOPS_DEFAULT_TEAM=Web 2.0
+AZURE_DEVOPS_DEFAULT_TEAM=Your Team Name
 AZURE_DEVOPS_DEFAULT_QUERY_ID=your-query-guid
 AZURE_DEVOPS_OUTPUT_DIR=output
 ```
@@ -234,7 +234,7 @@ Once the skill is installed and configured, you can ask ClawBot in plain English
 - `show my Azure DevOps projects`
 - `list my Azure DevOps projects`
 - `how many teams do we have?`
-- `list all team members in Web 2.0 team`
+- `list all team members in <Your Team Name> team`
 - `can you list the sprints?`
 
 ### Reporting queries
