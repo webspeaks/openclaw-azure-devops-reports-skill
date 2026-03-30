@@ -48,19 +48,16 @@ If required values are missing, ask the user to create or update `.env` in this 
 9. Build summary tables for state, assignee, and work item type.
 10. Build Excel charts from exported JSON when the user asks for workbook generation.
 11. Use project listing, team listing, team-member listing, sprint listing, and saved-query reporting when the user asks in plain language.
-12. Prefer wrapper scripts for the most common workflows.
 
 ## Scripts
 
 - `scripts/projects.js` — list projects
-- `scripts/list-projects.js` — simple wrapper to list projects
 - `scripts/teams.js` — list teams in a project and team members
 - `scripts/iterations.js` — list team iterations / current sprint
 - `scripts/queries.js` — list saved queries and inspect a query definition
 - `scripts/workitems.js` — run work item queries and normalize results
 - `scripts/export-report.js` — export JSON/CSV data bundles
 - `scripts/build_excel_report.py` — generate Excel workbooks with charts from exported JSON
-- `scripts/generate-excel-report.js` — wrapper that exports JSON and then builds the Excel workbook
 
 ## Exact script usage
 
@@ -80,12 +77,6 @@ pip3 install -r requirements.txt
 
 ```bash
 node scripts/projects.js list
-```
-
-or
-
-```bash
-node scripts/list-projects.js
 ```
 
 ### 2) List teams in a project
@@ -186,36 +177,6 @@ node scripts/export-report.js sprint-summary \
 python3 scripts/build_excel_report.py \
   --input output/query-data.json \
   --output output/query-report.xlsx
-```
-
-### 12) One-step wrapper: export JSON, then generate Excel
-
-Using `.env` defaults:
-
-```bash
-node scripts/generate-excel-report.js
-```
-
-With explicit saved query:
-
-```bash
-node scripts/generate-excel-report.js \
-  --mode query-id \
-  --project "Project Name" \
-  --id "QUERY_GUID" \
-  --json query-data.json \
-  --xlsx query-report.xlsx
-```
-
-With explicit sprint summary:
-
-```bash
-node scripts/generate-excel-report.js \
-  --mode sprint-summary \
-  --project "Project Name" \
-  --team "Team Name" \
-  --json sprint-data.json \
-  --xlsx sprint-report.xlsx
 ```
 
 ## Ask ClawBot in plain English

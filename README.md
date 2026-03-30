@@ -150,12 +150,6 @@ cd /path/to/azure-devops-reports
 node scripts/projects.js list
 ```
 
-or
-
-```bash
-node scripts/list-projects.js
-```
-
 ### List teams in a project
 
 ```bash
@@ -212,10 +206,12 @@ node scripts/workitems.js closed-last-week
 node scripts/export-report.js
 ```
 
-### Generate Excel report in one step
+### Build Excel workbook from exported JSON
 
 ```bash
-node scripts/generate-excel-report.js
+python3 scripts/build_excel_report.py \
+  --input output/query-data.json \
+  --output output/query-report.xlsx
 ```
 
 This will typically create:
@@ -269,7 +265,7 @@ Generate the Azure DevOps report
 
 - use the default project and saved query from `.env`
 - export report data to JSON
-- generate the Excel workbook
+- build the Excel workbook from the exported JSON
 - return the final file path
 
 ### Example 2
