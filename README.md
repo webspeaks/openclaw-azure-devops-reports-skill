@@ -255,22 +255,6 @@ Once the skill is installed and configured, you can ask ClawBot in plain English
 
 ---
 
-## Publishing checklist
-
-Before publishing to GitHub or ClawHub:
-
-- keep `.env` out of version control
-- keep `.env.example` in the repo
-- keep `output/` ignored
-- keep OS/editor junk ignored
-- remove generated report files before publishing
-- remove cache files before publishing
-- test from a clean clone
-- verify docs do not contain local machine paths or secrets
-- verify the skill works with only `.env.example` + `requirements.txt` guidance
-
----
-
 ## License
 
 MIT
