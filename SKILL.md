@@ -6,15 +6,12 @@ metadata:
     "openclaw": {
       "requires": {
         "bins": ["node", "python3", "pip3"],
-        "envVars": [
+        "env": [
           "AZURE_DEVOPS_ORG",
-          "AZURE_DEVOPS_PAT",
-          "AZURE_DEVOPS_DEFAULT_PROJECT",
-          "AZURE_DEVOPS_DEFAULT_TEAM",
-          "AZURE_DEVOPS_DEFAULT_QUERY_ID",
-          "AZURE_DEVOPS_OUTPUT_DIR"
+          "AZURE_DEVOPS_PAT"
         ]
-      }
+      },
+      "primaryEnv": "AZURE_DEVOPS_PAT"
     }
   }
 ---

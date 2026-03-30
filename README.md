@@ -68,6 +68,7 @@ No write scopes or admin scopes are required for the intended workflow.
 - Keep `.env` local
 - Never commit `.env`
 - Commit only `.env.example`
+- Primary credential: `AZURE_DEVOPS_PAT`
 - This skill reads configuration from the skill-local `.env` file only
 
 ---
@@ -107,7 +108,7 @@ AZURE_DEVOPS_OUTPUT_DIR=output
 ### Required variables
 
 - `AZURE_DEVOPS_ORG`
-- `AZURE_DEVOPS_PAT`
+- `AZURE_DEVOPS_PAT` ← primary credential
 
 ### Useful defaults
 
