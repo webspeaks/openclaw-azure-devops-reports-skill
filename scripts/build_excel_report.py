@@ -119,7 +119,10 @@ def build_report(input_json, output_xlsx):
         })
 
         chart.set_title({'name': 'Weekly Created vs Closed Trend'})
-        chart.set_x_axis({'name': 'Week Starting'})
+        chart.set_x_axis({
+            'name': 'Week Starting',
+            'num_font': {'rotation': -90}
+        })
         chart.set_y_axis({'name': 'Work Items'})
         chart_sheet.insert_chart('B2', chart, {'x_scale': 1.5, 'y_scale': 1.5})
 

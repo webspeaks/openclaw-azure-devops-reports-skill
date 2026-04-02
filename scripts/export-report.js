@@ -99,7 +99,10 @@ async function main() {
   const argOffset = command === 'default' && firstArg !== 'default' ? 2 : 3;
   const args = parseArgs(process.argv.slice(argOffset));
   const format = (args.format || 'json').toLowerCase();
-  const out = args.out || (format === 'csv' ? `${command}.csv` : `${command}.json`);
+  const defaultOut = command === 'default' || command === 'query-id'
+    ? (format === 'csv' ? 'query-data.csv' : 'query-data.json')
+    : (format === 'csv' ? `${command}.csv` : `${command}.json`);
+  const out = args.out || defaultOut;
 
   let bundle;
   if (command === 'sprint-summary') {
